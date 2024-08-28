@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Ownership {
+  PUBLIC
+  PRIVATE
+}
+
+enum OperationalStatus {
+  Operational
+  PendingOperation
+  PendingOperationButConstructed
+  PendingOperationUnderConstruction
+  Closed
+  ClosedTemporarily
+}
+
+enum FacilityLevel {
+  PRIMARY
+  SECONDARY
+  TERTIARY
+}
+
+enum LicenseStatus {
+  Licensed
+  NotLicensed
+  LicenseCancelled
+  NotApplicable
+  Unknown
+}
+
+enum RegistrationStatus {
+  ProvisionallyRegistered
+  Registered
+  RegistrationSuspended
+  RegistrationCancelled
+  PendingRegistration
+  NotApplicable
+  Unknown
+}
+
+model Healthcare {
+  id            String  @id @default(cuid())
+  facilityCode  String  @unique @map("facility_code")
+  stateUniqueId String? @map("state_unique_id")
+  regNo         String? @map("reg_no")
+  facilityName  String   @map("facility_name")
+  alternateName  String?  @unique @map("alternateName")
+  startDate  DateTime? @map("start_date")
+  ownership  Ownership @map("ownership")
+  ownershipType  String? @map("ownership_type")
+  facilityLevel  FacilityLevel @map("facility_level")
+  facilityLevelOption  String? @map("facility_level_option")
+  daysOfOperation  String[] @map("days_of_operation")
+  hoursOfOperation  String[] @map("hours_of_operation")
+
+  // Location data
+  state String
+  lga String
+  ward String?
+  physicalLocation String? @map("physical_location")
+  postalAddress String? @map("postal_address")
+  longitude Int?
+  latitude Int?
+
+  // Contact
+  phone String?
+  alternatePhone String? @map("alternate_phone")
+  email String?
+  website String?
+
+  // Status
+  operationalStatus OperationalStatus @map("operational_status")
+  registrationStatus RegistrationStatus @map("registration_status")
+  licenseStatus LicenseStatus @map("license_status")
+
+  // Services
+  inPatient Boolean?
+  outPatient Boolean?
+  medicalServices String[] @map("medical_services")
+  surgicalServices String[] @map("surgical_services")
+  obstericsAndGynecologyServices String[] @map(" obsterics_and_gynecology_services")
+  pediatricsServices String[] @map("pediatrics_services")
+  dentalServices String[] @map("dental_services")
+  specificServices String[] @map("specific_services")
+  numOfBeds Int @map("num_of_beds")
+  onSiteLaboratory Boolean? @map("onsite_laboratory")
+  onSiteImaging Boolean? @map("onsite_imaging")
+  onSitePharmacy Boolean? @map("onsite_pharmacy")
+  mortuaryServices Boolean? @map("mortuary_services")
+  ambulanceServices Boolean? @map("ambulance_services")
+
+
+  numOfDoctors Int? @map("num_of_doctors")
+  numOfPharmacists Int? @map("num_of_pharmacists")
+  numOfPharmacyTechnicians Int? @map("num_of_pharmacy_technicians")
+  numOfDentists Int? @map("num_of_dentists")
+  numOfDentalTechnicians Int? @map("num_of_dental_technicians")
+  numOfNurses Int? @map("num_of_nurses")
+  numOfMidwifes Int? @map("num_of_midwifes")
+  numOfNursesOrMidwifes Int? @map("num_of_nurses_or_midwifes")
+  numOfLabTechnicians Int? @map("num_of_lab_technicians")
+  numOfLabScientits Int? @map("num_of_lab_scientits")
+  numOfHIMOfficers Int? @map("num_of_him_officers")
+  numOfCommunityHealthOfficers Int? @map("num_of_community_health_officers")
+  numOfCommunityHealthExtensionWorker Int? @map("num_of_community_health_extension_worker")
+  numOfJuniorComHealthExtensionWorker Int? @map("num_of_junior_com_health_extension_worker")
+  numOfEnvironmentalHealthOfficers Int? @map("num_of_environmental_health_officers")
+  numOfHealthAssitant Int? @map("num_of_health_assitant")
+}
