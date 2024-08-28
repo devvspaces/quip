@@ -43,7 +43,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no  debian@${{ secrets.EC2_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no  dev@${{ secrets.EC2_IP }} << 'EOF'
             # Stop and remove any existing container
             pwd
            if docker ps -a --format '{{.Names}}' | grep -q '^quip-be$'; then
