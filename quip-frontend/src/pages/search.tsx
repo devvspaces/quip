@@ -37,9 +37,14 @@ import Healthcare, {
   RegistrationStatusObj,
 } from "@/helpers/interface";
 import { FiFilter } from "react-icons/fi";
+import { useGeoLocation } from "@/hooks/useGeoLocation";
 
 export default function Home() {
-  const NUMBER_OF_FACILITIES_TO_FETCH = 2;
+  const NUMBER_OF_FACILITIES_TO_FETCH = 5;
+
+  const location = useGeoLocation();
+
+  console.log(location);
 
   const [facilities, setFacilities] = useState<Healthcare[]>([]);
   const [offset, setOffset] = useState<number>(0);
@@ -94,9 +99,14 @@ export default function Home() {
     data?: Record<string, string>
   ) => {
     try {
+      const locate = {
+        longitude: location?.longitude.toString() ?? "",
+        latitude: location?.latitude.toString() ?? "",
+      };
       const query = {
         skip: offset.toString(),
         take: limit.toString(),
+        ...(location ? locate : {}),
         ...data,
       };
       // Convert query to url search params
@@ -139,7 +149,7 @@ export default function Home() {
     }
 
     fetchFacilities();
-  }, []);
+  }, [location]);
 
   const loadMoreUsers = async () => {
     const query: Record<string, string> = {};

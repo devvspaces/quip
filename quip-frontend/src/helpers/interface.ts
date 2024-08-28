@@ -116,6 +116,7 @@ interface Healthcare {
   numOfJuniorComHealthExtensionWorker?: number;
   numOfEnvironmentalHealthOfficers?: number;
   numOfHealthAssitant?: number;
+  distance?: number;
 }
 
 export default Healthcare;

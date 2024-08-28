@@ -61,6 +61,21 @@ function LrCustom({ name, value }: { name: string; value: ReactElement }) {
   );
 }
 
+function calculateTravelTime(distance: number, avgSpeed: number): string {
+  const travelTime = distance / avgSpeed;
+  const hours = Math.floor(travelTime);
+  const minutes = Math.floor((travelTime - hours) * 60);
+  const seconds = Math.floor(((travelTime - hours) * 3600) % 60);
+
+  if (hours >= 1) {
+    return `${hours} hours`;
+  } else if (minutes >= 1) {
+    return `${minutes} minutes`;
+  } else {
+    return `${seconds} seconds`;
+  }
+}
+
 export default function FacilityCard({ facility }: { facility: Healthcare }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -75,6 +90,7 @@ export default function FacilityCard({ facility }: { facility: Healthcare }) {
       </Flex>
     );
   }
+
   return (
     <Center>
       <Box
@@ -89,7 +105,14 @@ export default function FacilityCard({ facility }: { facility: Healthcare }) {
         <Heading mb={4} fontSize={"2xl"} fontFamily={"body"}>
           {facility.facilityName}
         </Heading>
-        <Text mb={4}>33 Miles / 20 mins away</Text>
+        <Text mb={4}>
+          {facility.distance
+            ? Math.floor(facility.distance).toLocaleString()
+            : "-"}{" "}
+          Miles /{" "}
+          {facility.distance ? calculateTravelTime(facility.distance, 30) : "-"}{" "}
+          away
+        </Text>
 
         <HStack align={"center"} justify={"center"} mt={6} wrap={"wrap"}>
           <Badge
@@ -351,11 +374,26 @@ export default function FacilityCard({ facility }: { facility: Healthcare }) {
                     name={"Medical"}
                     value={arrayToFlex(facility.medicalServices)}
                   />
-                  <LrCustom name={"Surgical"} value={arrayToFlex(facility.surgicalServices)} />
-                  <LrCustom name={"Obstetrics and Gynecology"} value={arrayToFlex(facility.obstericsAndGynecologyServices)} />
-                  <LrCustom name={"Pediatrics"} value={arrayToFlex(facility.pediatricsServices)} />
-                  <LrCustom name={"Dental"} value={arrayToFlex(facility.dentalServices)} />
-                  <LrCustom name={"Specific"} value={arrayToFlex(facility.specificServices)} />
+                  <LrCustom
+                    name={"Surgical"}
+                    value={arrayToFlex(facility.surgicalServices)}
+                  />
+                  <LrCustom
+                    name={"Obstetrics and Gynecology"}
+                    value={arrayToFlex(facility.obstericsAndGynecologyServices)}
+                  />
+                  <LrCustom
+                    name={"Pediatrics"}
+                    value={arrayToFlex(facility.pediatricsServices)}
+                  />
+                  <LrCustom
+                    name={"Dental"}
+                    value={arrayToFlex(facility.dentalServices)}
+                  />
+                  <LrCustom
+                    name={"Specific"}
+                    value={arrayToFlex(facility.specificServices)}
+                  />
                   <LrCustom
                     name={"Onsite Laboratory"}
                     value={

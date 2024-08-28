@@ -8,6 +8,7 @@ import {
 } from '@prisma/client';
 import { IsString, IsEnum, IsOptional, IsNumber } from 'class-validator';
 import { PaginationQueryDto } from './common/dtos/query.dto';
+import { Transform } from 'class-transformer';
 
 export class FilterHospitalsDto extends PaginationQueryDto {
   @IsString()
@@ -36,6 +37,7 @@ export class FilterHospitalsDto extends PaginationQueryDto {
   @ApiProperty({
     required: false,
   })
+  @Transform(({ value }) => parseFloat(value))
   longitude: number;
 
   @IsNumber()
@@ -43,6 +45,7 @@ export class FilterHospitalsDto extends PaginationQueryDto {
   @ApiProperty({
     required: false,
   })
+  @Transform(({ value }) => parseFloat(value))
   latitude: number;
 
   @IsEnum(Ownership)

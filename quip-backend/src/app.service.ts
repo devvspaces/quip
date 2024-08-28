@@ -31,20 +31,21 @@ export class AppService {
       facilityLevel: query.facilityLevel,
       licenseStatus: query.licenseStatus,
       registrationStatus: query.registrationStatus,
-      OR: [
-        {
-          state: query.state,
-        },
-        {
-          lga: query.lga,
-        },
-      ],
+      OR:
+        query.state && query.lga
+          ? [
+              {
+                state: query.state,
+              },
+              {
+                lga: query.lga,
+              },
+            ]
+          : undefined,
     };
     const count = await this.prismaService.healthcare.count({ where: filter });
     let results = await this.prismaService.healthcare.findMany({
       where: filter,
-      take: query.take,
-      skip: query.skip,
     });
 
     if (query.latitude && query.longitude) {
@@ -72,6 +73,8 @@ export class AppService {
         return 0;
       });
     }
+
+    results = results.slice(query.skip, query.skip + query.take);
     return { count, results };
   }
 }
