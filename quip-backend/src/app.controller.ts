@@ -21,8 +21,9 @@ import {
   RegistrationStatus,
 } from '@prisma/client';
 import { FilterHospitalsDto } from './app.dto';
+import { paginate } from './common/helpers/pagination';
 
-@Controller('Base')
+@Controller('facilities')
 @ApiTags('Base')
 @UseInterceptors(ClassSerializerInterceptor)
 export class AppController {
@@ -62,7 +63,8 @@ export class AppController {
     enum: RegistrationStatus,
     required: false,
   })
-  findHospitals(@Query() query: FilterHospitalsDto) {
-    return this.appService.findHospitals(query);
+  async findHospitals(@Query() query: FilterHospitalsDto) {
+    const { results, count } = await this.appService.findHospitals(query);
+    return paginate(count, query.take, query.skip, results);
   }
 }

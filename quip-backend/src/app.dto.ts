@@ -7,8 +7,9 @@ import {
   RegistrationStatus,
 } from '@prisma/client';
 import { IsString, IsEnum, IsOptional } from 'class-validator';
+import { PaginationQueryDto } from './common/dtos/query.dto';
 
-export class FilterHospitalsDto {
+export class FilterHospitalsDto extends PaginationQueryDto {
   @IsString()
   @IsOptional()
   @ApiProperty({

@@ -1,21 +1,11 @@
-"use client";
-
 import {
   Box,
   Flex,
-  Avatar,
-  Text,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
   useColorMode,
-  Center,
   Container,
   Heading,
 } from "@chakra-ui/react";
@@ -51,22 +41,31 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-        <Container maxW={"7xl"}>
-          <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-            <Box>
-              <Heading>Quip</Heading>
-            </Box>
-
-            <Flex alignItems={"center"}>
-              <Stack direction={"row"} spacing={7}>
-                <Button onClick={toggleColorMode}>
-                  {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                </Button>
-              </Stack>
+      <Box h={'100vh'}>
+        <Box
+          bg={useColorModeValue("gray.100", "gray.900")}
+          w={"100%"}
+          position="fixed"
+          zIndex={1}
+          top={0}
+        >
+          <Container maxW={"1200px"}>
+            <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+              <Box>
+                <Heading>CareCompass</Heading>
+              </Box>
+              <Flex alignItems={"center"}>
+                <Stack direction={"row"} spacing={7}>
+                  <Button onClick={toggleColorMode}>
+                    {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                  </Button>
+                </Stack>
+              </Flex>
             </Flex>
-          </Flex>
-          <main>{children}</main>
+          </Container>
+        </Box>
+        <Container marginTop={20} maxW={"1200px"} h={'100%'}>
+          {children}
         </Container>
       </Box>
     </>

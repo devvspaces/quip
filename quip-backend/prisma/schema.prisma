@@ -72,8 +72,8 @@ model Healthcare {
   ward String?
   physicalLocation String? @map("physical_location")
   postalAddress String? @map("postal_address")
-  longitude Int?
-  latitude Int?
+  longitude Float?
+  latitude Float?
 
   // Contact
   phone String?
