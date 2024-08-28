@@ -6,6 +6,8 @@ on:
         - master  # Adjust branch name as needed
     paths:
         - 'quip-backend/**'
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
