@@ -57,5 +57,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/quip-be:${{ github.run_number }}
 
             # Run the new container
-            docker run -d -p 4500:4000  --env-file /home/debian/quip/.env --name quip-be ${{ secrets.DOCKER_USERNAME }}/quip-be:${{ github.run_number }}
+            docker run -d -p 4600:4000  --env-file /home/debian/quip/.env --name quip-be ${{ secrets.DOCKER_USERNAME }}/quip-be:${{ github.run_number }}
           EOF
