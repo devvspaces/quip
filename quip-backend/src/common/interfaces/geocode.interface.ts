@@ -8,6 +8,7 @@ export interface ReverseGeocodeResponse {
   address: {
     state: string;
     country: string;
+    county: string;
   };
 }
 

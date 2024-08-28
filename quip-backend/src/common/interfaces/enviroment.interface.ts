@@ -10,5 +10,4 @@ export interface EnvironmentConfig {
   getAppName(): string;
   getSwaggerRoute(): string;
   getPort(): number;
-  getApiUrl(): string;
 }

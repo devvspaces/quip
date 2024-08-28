@@ -21,9 +21,6 @@ class EnvironmentVariables {
 
   @IsNumber()
   PORT: number;
-
-  @IsString()
-  API_URL: string;
 }
 
 export function validate(config: Record<string, unknown>) {

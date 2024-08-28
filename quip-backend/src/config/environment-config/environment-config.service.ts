@@ -23,8 +23,4 @@ export class EnvironmentConfigService implements EnvironmentConfig {
   getSwaggerRoute(): string {
     return this.configService.get<string>('SWAGGER_ROUTE');
   }
-
-  getApiUrl(): string {
-    return this.configService.get<string>('API_URL');
-  }
 }

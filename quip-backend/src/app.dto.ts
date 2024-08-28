@@ -6,7 +6,7 @@ import {
   Ownership,
   RegistrationStatus,
 } from '@prisma/client';
-import { IsString, IsEnum, IsOptional } from 'class-validator';
+import { IsString, IsEnum, IsOptional, IsNumber } from 'class-validator';
 import { PaginationQueryDto } from './common/dtos/query.dto';
 
 export class FilterHospitalsDto extends PaginationQueryDto {
@@ -16,6 +16,34 @@ export class FilterHospitalsDto extends PaginationQueryDto {
     required: false,
   })
   name: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    required: false,
+  })
+  state?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    required: false,
+  })
+  lga?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    required: false,
+  })
+  longitude: number;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({
+    required: false,
+  })
+  latitude: number;
 
   @IsEnum(Ownership)
   @IsOptional()
