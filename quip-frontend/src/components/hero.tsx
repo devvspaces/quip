@@ -7,6 +7,7 @@ import {
   Button,
   Icon,
   IconProps,
+  Image,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -876,11 +877,12 @@ export default function Hero() {
             </Button>
           </Link>
         </Stack>
-        <Flex w={"full"}>
-          <Illustration
+        <Flex w={"full"} justify={'center'}>
+          {/* <Illustration
             height={{ sm: "24rem", lg: "28rem" }}
             mt={{ base: 12, sm: 16 }}
-          />
+          /> */}
+          <Image src="/9391783.png" alt="Hero Image" />
         </Flex>
       </Stack>
     </Container>

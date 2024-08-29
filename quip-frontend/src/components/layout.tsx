@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box>
+      <Box minH={'100vh'}>
         <Box
           bg={useColorModeValue("gray.100", "gray.900")}
           w={"100%"}
