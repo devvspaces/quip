@@ -7,7 +7,8 @@ import {
   Button,
   Icon,
   IconProps,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
+import Link from "next/link";
 
 const Illustration = (props: IconProps) => {
   return (
@@ -16,7 +17,8 @@ const Illustration = (props: IconProps) => {
       viewBox="0 0 702 448"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}>
+      {...props}
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -525,7 +527,10 @@ const Illustration = (props: IconProps) => {
         d="M352.561 81.4929C351.177 80.8933 350.512 79.3289 351.089 77.9941C351.667 76.6593 353.262 76.074 354.646 76.6736L355.053 75.7338C353.139 74.9048 350.945 75.7425 350.148 77.5863C349.35 79.4301 350.241 81.6038 352.155 82.4328L352.561 81.4929Z"
         fill="white"
       />
-      <path d="M594.263 223.166H136.849V236.122H594.263V223.166Z" fill="black" />
+      <path
+        d="M594.263 223.166H136.849V236.122H594.263V223.166Z"
+        fill="black"
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -780,7 +785,8 @@ const Illustration = (props: IconProps) => {
           y1="345.577"
           x2="527.144"
           y2="147.032"
-          gradientUnits="userSpaceOnUse">
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#B8D8D5" />
           <stop offset="0.42" stopColor="#CEE0DA" />
           <stop offset="1" stopColor="#FFF0E6" />
@@ -791,7 +797,8 @@ const Illustration = (props: IconProps) => {
           y1="106.847"
           x2="-86.7512"
           y2="315.127"
-          gradientUnits="userSpaceOnUse">
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#B8D8D5" />
           <stop offset="0.47" stopColor="#CCDFDA" />
           <stop offset="1" stopColor="#FFF0E6" />
@@ -802,7 +809,8 @@ const Illustration = (props: IconProps) => {
           y1="150.967"
           x2="671.263"
           y2="250.917"
-          gradientUnits="userSpaceOnUse">
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#FFBF2F" />
           <stop offset="1" stopColor="#FD9500" />
         </linearGradient>
@@ -812,55 +820,69 @@ const Illustration = (props: IconProps) => {
           y1="337.91"
           x2="471.34"
           y2="225.092"
-          gradientUnits="userSpaceOnUse">
+          gradientUnits="userSpaceOnUse"
+        >
           <stop stopColor="#FFBF2F" />
           <stop offset="0.48" stopColor="#FEB422" />
           <stop offset="1" stopColor="#FD9500" />
         </linearGradient>
       </defs>
     </Icon>
-  )
-}
+  );
+};
 
 export default function Hero() {
   return (
-    <Container maxW={'5xl'}>
+    <Container maxW={"5xl"}>
       <Stack
-        textAlign={'center'}
-        align={'center'}
+        textAlign={"center"}
+        align={"center"}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}>
+        py={{ base: 20, md: 28 }}
+      >
         <Heading
           fontWeight={600}
-          fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-          lineHeight={'110%'}>
-          Finding Healthcare facilities{' '}
-          <Text as={'span'} color={'orange.400'}>
+          fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
+          lineHeight={"110%"}
+        >
+          Finding Healthcare facilities{" "}
+          <Text as={"span"} color={"orange.400"}>
             made easy
           </Text>
         </Heading>
-        <Text color={'gray.500'} maxW={'3xl'}>
-          Having trouble finding the right healthcare facility? Don&apos;t worry, we&apos;ve got you covered.
-          Our solution allows you to find nearby healthcare facilities in just a few clicks.
-          Use the smart search feature to locate the nearest healthcare facility that fit your needs.
+        <Text color={"gray.500"} maxW={"3xl"}>
+          Having trouble finding the right healthcare facility? Don&apos;t
+          worry, we&apos;ve got you covered. Our solution allows you to find
+          nearby healthcare facilities in just a few clicks. Use the smart
+          search feature to locate the nearest healthcare facility that fit your
+          needs.
         </Text>
-        <Stack spacing={6} direction={'row'}>
-          <Button
-            rounded={'full'}
-            px={6}
-            colorScheme={'orange'}
-            bg={'orange.400'}
-            _hover={{ bg: 'orange.500' }}>
-            Get started
-          </Button>
-          <Button rounded={'full'} px={6}>
-            Learn more
-          </Button>
+        <Stack spacing={6} direction={"row"}>
+          <Link href={"/search"}>
+            <Button
+              rounded={"full"}
+              px={6}
+              colorScheme={"orange"}
+              bg={"orange.400"}
+              _hover={{ bg: "orange.500" }}
+            >
+              Get started
+            </Button>
+          </Link>
+
+          <Link href={"#learn-more"}>
+            <Button rounded={"full"} px={6}>
+              Learn more
+            </Button>
+          </Link>
         </Stack>
-        <Flex w={'full'}>
-          <Illustration height={{ sm: '24rem', lg: '28rem' }} mt={{ base: 12, sm: 16 }} />
+        <Flex w={"full"}>
+          <Illustration
+            height={{ sm: "24rem", lg: "28rem" }}
+            mt={{ base: 12, sm: 16 }}
+          />
         </Flex>
       </Stack>
     </Container>
-  )
+  );
 }

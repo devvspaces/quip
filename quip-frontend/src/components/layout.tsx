@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { ReactNode } from "react";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
@@ -52,7 +53,9 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Container maxW={"1200px"}>
             <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
               <Box>
-                <Heading>CareCompass</Heading>
+                <Heading>
+                  <Link href={"/"}>CareCompass</Link>
+                </Heading>
               </Box>
               <Flex alignItems={"center"}>
                 <Stack direction={"row"} spacing={7}>
