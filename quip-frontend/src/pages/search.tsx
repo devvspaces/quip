@@ -49,6 +49,7 @@ export default function Home() {
   const [hasNextPage, setHasNextPage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
+    smartSearch: "",
     name: "",
     facilityLevel: "",
     ownership: "",
@@ -195,6 +196,15 @@ export default function Home() {
               <form onSubmit={handleSubmit}>
                 <Stack spacing={4} mb={4}>
                   <FormControl>
+                    <FormLabel>Smart Search</FormLabel>
+                    <Input
+                      name="smartSearch"
+                      placeholder="I am having stomach pain"
+                      onChange={handleChange}
+                      value={formData.smartSearch}
+                    />
+                  </FormControl>
+                  <FormControl>
                     <FormLabel>Facility name</FormLabel>
                     <Input
                       name="name"
@@ -298,6 +308,7 @@ export default function Home() {
                 mr={3}
                 onClick={(e) => {
                   setFormData({
+                    smartSearch: "",
                     name: "",
                     facilityLevel: "",
                     ownership: "",

@@ -4,6 +4,7 @@ import { PrismaService } from './config/prisma/prisma.service';
 import { calculateDistanceInMiles } from './common/helpers/distance';
 import { GeocodeService } from './services/geocode/geo.service';
 import { BedrockService } from './services/aws-bedrock/bedrock.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AppService {
@@ -19,13 +20,18 @@ export class AppService {
           query.latitude,
           query.longitude,
         );
-        console.log(revGeo);
         query.state = revGeo.address.state;
         query.lga = revGeo.address.city;
       }
     }
 
-    const filter = {
+    const services: string[] = [];
+    if (query.smartSearch) {
+      const { classes } = await this.classifyMessage(query.smartSearch);
+      services.push(...classes);
+    }
+
+    const filter: Prisma.HealthcareWhereInput = {
       facilityName: query.name && {
         contains: query.name,
       },
@@ -34,17 +40,60 @@ export class AppService {
       facilityLevel: query.facilityLevel,
       licenseStatus: query.licenseStatus,
       registrationStatus: query.registrationStatus,
-      OR:
-        query.state && query.lga
-          ? [
-              {
-                state: query.state,
-              },
-              {
-                lga: query.lga,
-              },
-            ]
-          : undefined,
+      AND: [
+        {
+          OR: [
+            ...(query.state || query.lga
+              ? [
+                  {
+                    state: query.state,
+                  },
+                  {
+                    lga: query.lga,
+                  },
+                ]
+              : []),
+          ],
+        },
+        {
+          OR: [
+            ...(services.length
+              ? [
+                  {
+                    medicalServices: {
+                      hasSome: services,
+                    },
+                  },
+                  {
+                    obstericsAndGynecologyServices: {
+                      hasSome: services,
+                    },
+                  },
+                  {
+                    specificServices: {
+                      hasSome: services,
+                    },
+                  },
+                  {
+                    dentalServices: {
+                      hasSome: services,
+                    },
+                  },
+                  {
+                    surgicalServices: {
+                      hasSome: services,
+                    },
+                  },
+                  {
+                    pediatricsServices: {
+                      hasSome: services,
+                    },
+                  },
+                ]
+              : []),
+          ],
+        },
+      ],
     };
     const count = await this.prismaService.healthcare.count({ where: filter });
     let results = await this.prismaService.healthcare.findMany({
@@ -80,7 +129,9 @@ export class AppService {
     results = results.slice(query.skip, query.skip + query.take);
     return { count, results };
   }
-  async classifyMessage(message: string) {
+  async classifyMessage(message: string): Promise<{
+    classes: string[];
+  }> {
     const services = [
       'Gastroenterology',
       'Hematology',

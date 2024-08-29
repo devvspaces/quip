@@ -23,4 +23,12 @@ export class EnvironmentConfigService implements EnvironmentConfig {
   getSwaggerRoute(): string {
     return this.configService.get<string>('SWAGGER_ROUTE');
   }
+
+  getAwsAccessKey(): string {
+    return this.configService.get<string>('AWS_ACCESS_KEY');
+  }
+
+  getAwsSecretKey(): string {
+    return this.configService.get<string>('AWS_SECRET_ACCESS_KEY');
+  }
 }

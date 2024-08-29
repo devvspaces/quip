@@ -21,6 +21,12 @@ class EnvironmentVariables {
 
   @IsNumber()
   PORT: number;
+
+  @IsString()
+  AWS_ACCESS_KEY: string;
+
+  @IsString()
+  AWS_SECRET_ACCESS_KEY: string;
 }
 
 export function validate(config: Record<string, unknown>) {

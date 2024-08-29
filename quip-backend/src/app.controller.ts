@@ -68,7 +68,7 @@ export class AppController {
     return paginate(count, query.take, query.skip, results);
   }
 
-  @Get()
+  @Get('classify')
   @ApiOperation({
     summary: 'Test model classification',
     description: 'Use this route to test model classification',
