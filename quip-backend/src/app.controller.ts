@@ -20,7 +20,7 @@ import {
   Ownership,
   RegistrationStatus,
 } from '@prisma/client';
-import { FilterHospitalsDto } from './app.dto';
+import { ClassifyDto, FilterHospitalsDto } from './app.dto';
 import { paginate } from './common/helpers/pagination';
 
 @Controller('facilities')
@@ -66,5 +66,18 @@ export class AppController {
   async findHospitals(@Query() query: FilterHospitalsDto) {
     const { results, count } = await this.appService.findHospitals(query);
     return paginate(count, query.take, query.skip, results);
+  }
+
+  @Get()
+  @ApiOperation({
+    summary: 'Test model classification',
+    description: 'Use this route to test model classification',
+  })
+  @ApiOkResponse({
+    description: 'Message was classified successfully',
+  })
+  @HttpCode(200)
+  async classify(@Query() query: ClassifyDto) {
+    return this.appService.classifyMessage(query.message);
   }
 }

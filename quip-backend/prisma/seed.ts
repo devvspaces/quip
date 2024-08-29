@@ -136,7 +136,21 @@ async function main() {
     return isNaN(num) ? null : num;
   }
 
+  const allServices: string[] = [];
+
   dataImport.forEach((item) => {
+    allServices.push(
+      ...[
+        ...item.medical,
+        ...item.surgical,
+        ...item.gyn,
+        ...item.pediatrics,
+        ...item.dental,
+        ...item.specialservice,
+      ]
+        .filter((v) => v !== '')
+        .map((v) => v.trim()),
+    );
     data.push({
       facilityCode: item.facility_code,
       stateUniqueId: item.state_unique_id,
@@ -200,6 +214,9 @@ async function main() {
       numOfHealthAssitant: stringToNum(item.attendants),
     });
   });
+
+  console.log(Array.from(new Set(allServices)));
+  return;
 
   for (const item of data) {
     await prisma.healthcare.upsert({

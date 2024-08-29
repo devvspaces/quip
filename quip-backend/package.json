@@ -21,6 +21,7 @@
     "seed": "ts-node --transpile-only prisma/seed.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.637.0",
     "@faker-js/faker": "^8.4.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.3",

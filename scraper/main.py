@@ -239,10 +239,10 @@ def run_scraper(id, file_name, url):
             json.dump(results, f, indent=4)
 
 
-# 101, 102, 103 '124', '128', '130'
+# 101, 102, 103'104', '105', '106' '124', '128', '130'
 
 if __name__ == '__main__':
-    states = ['104', '105', '106']
+    states = ['107', '108', '109', '110']
 
     processes: list[multiprocessing.Process] = []
     for state in states:

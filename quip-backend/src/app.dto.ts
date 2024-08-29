@@ -73,3 +73,9 @@ export class FilterHospitalsDto extends PaginationQueryDto {
   @ApiProperty()
   registrationStatus: RegistrationStatus;
 }
+
+export class ClassifyDto {
+  @IsString()
+  @ApiProperty()
+  message: string;
+}

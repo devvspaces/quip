@@ -3,12 +3,14 @@ import { FilterHospitalsDto } from './app.dto';
 import { PrismaService } from './config/prisma/prisma.service';
 import { calculateDistanceInMiles } from './common/helpers/distance';
 import { GeocodeService } from './services/geocode/geo.service';
+import { BedrockService } from './services/aws-bedrock/bedrock.service';
 
 @Injectable()
 export class AppService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly geocodeService: GeocodeService,
+    private readonly bedrockService: BedrockService,
   ) {}
   async findHospitals(query: FilterHospitalsDto) {
     if (query.longitude && query.latitude) {
@@ -77,5 +79,69 @@ export class AppService {
 
     results = results.slice(query.skip, query.skip + query.take);
     return { count, results };
+  }
+  async classifyMessage(message: string) {
+    const services = [
+      'Gastroenterology',
+      'Hematology',
+      'General Surgery',
+      'Anesthesia',
+      'Pediatric Surgery',
+      'Obstetrics',
+      'Gynecology',
+      'Fertility/Assisted Reproductive Techniques',
+      'Nephrology',
+      'Oncology',
+      'Endocrinology',
+      'Antenatal Care (ANC)',
+      'Immunization',
+      'HIV/ AIDS Services',
+      'Non Communicable Diseases',
+      'Family Planning',
+      'Intensive Care Services',
+      'Communicable Diseases',
+      'Hepatitis',
+      'Accidents and Emergency',
+      'Nutrition',
+      'Health Education and Community Mobilization',
+      'Maternal and newborn care',
+      'Pulmonology',
+      'Neonatology',
+      'Child Survival',
+      'Geriatrics',
+      'Neurology',
+      'Infectious Diseases',
+      'Tuberculosis',
+      'Nuclear Medicine',
+      'Neuro-Surgery',
+      'Urology',
+      'Oncology/ Radiotherapy',
+      'Radiology',
+      'Child Psychiatry/ Behavioral Medicine',
+      'Cardiology',
+      'Dermatology',
+      'Pathology',
+      'Psychiatry/Behavioral Medicine',
+      'Ophthalmology',
+      'Orthopedic Surgery',
+      'Otorhinolaryngology (ENT)',
+      'Plastic Surgery',
+      'Family Medicine',
+      'Oral and Maxillo-Facial Surgery',
+      'Periodontics',
+      'Scanning',
+      'Cardiothoracic Surgery',
+      'Vascular Surgery',
+    ];
+
+    const prompt = `
+    Classify this message
+    "${message}"
+    into one of more of the following healthcare services
+    ${services}
+    , and your response must only be in this JSON format { classes: [list of classes in strings]}. just the json nothing else
+    `;
+
+    return this.bedrockService.askAi(prompt);
   }
 }
