@@ -40,11 +40,9 @@ import { FiFilter } from "react-icons/fi";
 import { useGeoLocation } from "@/hooks/useGeoLocation";
 
 export default function Home() {
-  const NUMBER_OF_FACILITIES_TO_FETCH = 5;
+  const NUMBER_OF_FACILITIES_TO_FETCH = 15;
 
   const location = useGeoLocation();
-
-  console.log(location);
 
   const [facilities, setFacilities] = useState<Healthcare[]>([]);
   const [offset, setOffset] = useState<number>(0);
@@ -187,169 +185,167 @@ export default function Home() {
           onClick={onOpen}
           zIndex={2}
         />
-        <Flex alignItems={"start"} h={"100%"}>
-          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-            <DrawerOverlay />
-            <DrawerContent>
-              <DrawerCloseButton />
-              <DrawerHeader>Search</DrawerHeader>
+        <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Search</DrawerHeader>
 
-              <DrawerBody>
-                <form onSubmit={handleSubmit}>
-                  <Stack spacing={4} mb={4}>
-                    <FormControl>
-                      <FormLabel>Facility name</FormLabel>
-                      <Input
-                        name="name"
-                        placeholder="Enter facility name"
-                        onChange={handleChange}
-                        value={formData.name}
-                      />
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Ownership</FormLabel>
-                      <Select
-                        name="ownership"
-                        placeholder="Select option"
-                        onChange={handleChange}
-                        value={formData.ownership}
-                      >
-                        {OwnershipObj.map((item, i) => {
-                          return (
-                            <option key={i} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Facility Level</FormLabel>
-                      <Select
-                        name="facilityLevel"
-                        placeholder="Select option"
-                        onChange={handleChange}
-                        value={formData.facilityLevel}
-                      >
-                        {FacilityLevelObj.map((item, i) => {
-                          return (
-                            <option key={i} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Operational Status</FormLabel>
-                      <Select
-                        name="operationalStatus"
-                        placeholder="Select option"
-                        onChange={handleChange}
-                        value={formData.operationalStatus}
-                      >
-                        {OperationalStatusObj.map((item, i) => {
-                          return (
-                            <option key={i} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Registration Status</FormLabel>
-                      <Select
-                        name="registrationStatus"
-                        placeholder="Select option"
-                        onChange={handleChange}
-                        value={formData.registrationStatus}
-                      >
-                        {RegistrationStatusObj.map((item, i) => {
-                          return (
-                            <option key={i} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>License Status</FormLabel>
-                      <Select
-                        name="licenseStatus"
-                        placeholder="Select option"
-                        onChange={handleChange}
-                        value={formData.licenseStatus}
-                      >
-                        {LicenseStatusObj.map((item, i) => {
-                          return (
-                            <option key={i} value={item}>
-                              {item}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Stack>
-                </form>
-              </DrawerBody>
+            <DrawerBody>
+              <form onSubmit={handleSubmit}>
+                <Stack spacing={4} mb={4}>
+                  <FormControl>
+                    <FormLabel>Facility name</FormLabel>
+                    <Input
+                      name="name"
+                      placeholder="Enter facility name"
+                      onChange={handleChange}
+                      value={formData.name}
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Ownership</FormLabel>
+                    <Select
+                      name="ownership"
+                      placeholder="Select option"
+                      onChange={handleChange}
+                      value={formData.ownership}
+                    >
+                      {OwnershipObj.map((item, i) => {
+                        return (
+                          <option key={i} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Facility Level</FormLabel>
+                    <Select
+                      name="facilityLevel"
+                      placeholder="Select option"
+                      onChange={handleChange}
+                      value={formData.facilityLevel}
+                    >
+                      {FacilityLevelObj.map((item, i) => {
+                        return (
+                          <option key={i} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Operational Status</FormLabel>
+                    <Select
+                      name="operationalStatus"
+                      placeholder="Select option"
+                      onChange={handleChange}
+                      value={formData.operationalStatus}
+                    >
+                      {OperationalStatusObj.map((item, i) => {
+                        return (
+                          <option key={i} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Registration Status</FormLabel>
+                    <Select
+                      name="registrationStatus"
+                      placeholder="Select option"
+                      onChange={handleChange}
+                      value={formData.registrationStatus}
+                    >
+                      {RegistrationStatusObj.map((item, i) => {
+                        return (
+                          <option key={i} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>License Status</FormLabel>
+                    <Select
+                      name="licenseStatus"
+                      placeholder="Select option"
+                      onChange={handleChange}
+                      value={formData.licenseStatus}
+                    >
+                      {LicenseStatusObj.map((item, i) => {
+                        return (
+                          <option key={i} value={item}>
+                            {item}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </Stack>
+              </form>
+            </DrawerBody>
 
-              <DrawerFooter>
-                <Button
-                  variant="outline"
-                  mr={3}
-                  onClick={(e) => {
-                    setFormData({
-                      name: "",
-                      facilityLevel: "",
-                      ownership: "",
-                      licenseStatus: "",
-                      operationalStatus: "",
-                      registrationStatus: "",
-                    });
-                    handleClear();
-                    onClose();
-                  }}
-                >
-                  Clear
-                </Button>
-                <Button variant="outline" mr={3} onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  onClick={(e) => {
-                    handleSubmit(e);
-                    onClose();
-                  }}
-                >
-                  Save
-                </Button>
-              </DrawerFooter>
-            </DrawerContent>
-          </Drawer>
-          <Box flex="1">
-            {/* Search results */}
-            <Flex wrap={"wrap"} gap={"2rem"} alignItems={"flex-start"}>
-              {facilities.map((item, index) => (
-                <FacilityCard key={index} facility={item} />
-              ))}
-            </Flex>
-            {facilities.length === 0 && (
-              <Center>
-                <Text fontSize={"xl"}>No facilities found nearby</Text>
-              </Center>
-            )}
-            <Center py={"3rem"}>
-              {hasNextPage && (
-                <Button onClick={loadMoreUsers} isLoading={isLoading}>
-                  Load more
-                </Button>
-              )}
+            <DrawerFooter>
+              <Button
+                variant="outline"
+                mr={3}
+                onClick={(e) => {
+                  setFormData({
+                    name: "",
+                    facilityLevel: "",
+                    ownership: "",
+                    licenseStatus: "",
+                    operationalStatus: "",
+                    registrationStatus: "",
+                  });
+                  handleClear();
+                  onClose();
+                }}
+              >
+                Clear
+              </Button>
+              <Button variant="outline" mr={3} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                colorScheme="blue"
+                onClick={(e) => {
+                  handleSubmit(e);
+                  onClose();
+                }}
+              >
+                Save
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+        <Box>
+          {/* Search results */}
+          <Flex wrap={"wrap"} gap={"2rem"} alignItems={"stretch"}>
+            {facilities.map((item, index) => (
+              <FacilityCard key={index} facility={item} />
+            ))}
+          </Flex>
+          {facilities.length === 0 && (
+            <Center>
+              <Text fontSize={"xl"}>No facilities found nearby</Text>
             </Center>
-          </Box>
-        </Flex>
+          )}
+          <Center py={"3rem"}>
+            {hasNextPage && (
+              <Button onClick={loadMoreUsers} isLoading={isLoading}>
+                Load more
+              </Button>
+            )}
+          </Center>
+        </Box>
       </Box>
     </>
   );

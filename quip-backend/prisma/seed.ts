@@ -9,6 +9,9 @@ import {
 import * as data101 from './data_101.json';
 import * as data102 from './data_102.json';
 import * as data103 from './data_103.json';
+import * as data104 from './data_104.json';
+import * as data105 from './data_105.json';
+import * as data106 from './data_106.json';
 import * as data124 from './data_124.json';
 import * as data128 from './data_128.json';
 import * as data130 from './data_130.json';
@@ -23,6 +26,9 @@ async function main() {
     data101,
     data102,
     data103,
+    data104,
+    data105,
+    data106,
     data124,
     data128,
     data130,

@@ -49,8 +49,6 @@ export class AppService {
       where: filter,
     });
 
-    console.log(filter)
-
     if (query.latitude && query.longitude) {
       const newResults = results.map((facility) => {
         const newFacility = {
