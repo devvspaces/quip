@@ -17,8 +17,9 @@ export class AppService {
           query.latitude,
           query.longitude,
         );
+        console.log(revGeo);
         query.state = revGeo.address.state;
-        query.lga = revGeo.address.county;
+        query.lga = revGeo.address.city;
       }
     }
 
@@ -47,6 +48,8 @@ export class AppService {
     let results = await this.prismaService.healthcare.findMany({
       where: filter,
     });
+
+    console.log(filter)
 
     if (query.latitude && query.longitude) {
       const newResults = results.map((facility) => {
