@@ -167,7 +167,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Search for health institutions</title>
+        <title>CareCompass - Search</title>
+        <meta name="description" content="Instantly connect patients with nearby accredited healthcare facilities through smart, location-based search technology." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* Design two column ui one bigger than the other and well separated, the one on the left will be used as a filter box where users can 

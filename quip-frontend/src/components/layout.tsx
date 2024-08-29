@@ -12,6 +12,7 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { ReactNode } from "react";
 import Link from "next/link";
+import Footer from "./footer";
 
 interface Props {
   children: React.ReactNode;
@@ -42,7 +43,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box h={'100vh'}>
+      <Box>
         <Box
           bg={useColorModeValue("gray.100", "gray.900")}
           w={"100%"}
@@ -70,6 +71,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Container marginTop={20} maxW={"1200px"} h={'100%'}>
           {children}
         </Container>
+        <Footer />
       </Box>
     </>
   );

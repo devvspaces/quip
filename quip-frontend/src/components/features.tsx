@@ -10,6 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
+import { FaMagnifyingGlassLocation, FaSearchengin } from "react-icons/fa6";
 import {
   FcAbout,
   FcAssistant,
@@ -17,6 +18,8 @@ import {
   FcDonate,
   FcManager,
 } from "react-icons/fc";
+import { MdMobileFriendly } from "react-icons/md";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 interface CardProps {
   heading: string;
@@ -77,7 +80,7 @@ export default function Features() {
         <Flex flexWrap="wrap" gridGap={6} justify="center">
           <Card
             heading={"AI Search"}
-            icon={<Icon as={FcCollaboration} w={10} h={10} />}
+            icon={<Icon as={FaSearchengin} w={10} h={10} />}
             description={
               "Smart search functionality for finding healthcare facilities"
             }
@@ -85,7 +88,7 @@ export default function Features() {
           />
           <Card
             heading={"Geolocation"}
-            icon={<Icon as={FcDonate} w={10} h={10} />}
+            icon={<Icon as={FaMagnifyingGlassLocation} w={10} h={10} />}
             description={
               "Integration with geographical APIs for precise user location"
             }
@@ -93,7 +96,7 @@ export default function Features() {
           />
           <Card
             heading={"User-friendly"}
-            icon={<Icon as={FcManager} w={10} h={10} />}
+            icon={<Icon as={MdMobileFriendly} w={10} h={10} />}
             description={
               "A user-friendly interface optimized for quick access to information"
             }
@@ -101,7 +104,7 @@ export default function Features() {
           />
           <Card
             heading={"Accredited Healthcare"}
-            icon={<Icon as={FcAbout} w={10} h={10} />}
+            icon={<Icon as={RiVerifiedBadgeFill} w={10} h={10} />}
             description={
               "A database of accredited healthcare facilities"
             }
