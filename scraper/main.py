@@ -3,10 +3,24 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from webdriver_manager.firefox import GeckoDriverManager
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 import time
 import json
 import multiprocessing
+
+
+def wait_click(element):
+    while True:
+        try:
+            element.click()
+            break
+        except ElementNotInteractableException:
+            time.sleep(0.2)
+            continue
+
+def wait_interactive(element):
+    while not element.is_displayed():
+        time.sleep(0.2)
 
 
 def run_scraper(id, file_name, url):
@@ -17,6 +31,7 @@ def run_scraper(id, file_name, url):
     #     service=FirefoxService(GeckoDriverManager().install()))
     options = webdriver.FirefoxOptions()
     options.binary_location = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+    options.add_argument("--headless")
     driver = webdriver.Firefox(service=webdriver.FirefoxService(
         "C:\\Users\\Administrator\\Downloads\\geckodriver-v0.35.0-win32\\geckodriver.exe"), options=options)
 
@@ -28,15 +43,16 @@ def run_scraper(id, file_name, url):
 
             for row in rows:
                 button = row.find_element(By.TAG_NAME, "a")
-                button.click()
-                time.sleep(1)
+                wait_click(button)
                 modal = driver.find_element(By.ID, 'view_details')
+                wait_interactive(modal)
+
+                identifier = modal.find_element(
+                  By.CSS_SELECTOR, '#accordion > div:nth-child(1) > div.panel-heading > h4 > a')
+                wait_interactive(identifier)
 
                 if (not modal.find_element(By.ID, 'unique_id').is_displayed()):
-                    identifier = modal.find_element(
-                        By.CSS_SELECTOR, '#accordion > div:nth-child(1) > div.panel-heading > h4 > a')
-                    identifier.click()
-                    time.sleep(0.2)
+                    wait_click(identifier)
 
                 facility_code = modal.find_element(By.ID, 'unique_id').text
                 state_unique_id = modal.find_element(
@@ -59,8 +75,7 @@ def run_scraper(id, file_name, url):
 
                 location = modal.find_element(
                     By.CSS_SELECTOR, '#accordion > div:nth-child(2) > div.panel-heading > h4 > a')
-                location.click()
-                time.sleep(0.2)
+                wait_click(location)
 
                 state = modal.find_element(By.ID, 'state').text
                 lga = modal.find_element(By.ID, 'lga').text
@@ -74,8 +89,7 @@ def run_scraper(id, file_name, url):
 
                 contacts = modal.find_element(
                     By.CSS_SELECTOR, '#accordion > div:nth-child(3) > div.panel-heading > h4 > a')
-                contacts.click()
-                time.sleep(0.2)
+                wait_click(contacts)
 
                 phone_number = modal.find_element(By.ID, 'phone_number').text
                 alternate_number = modal.find_element(
@@ -85,8 +99,7 @@ def run_scraper(id, file_name, url):
 
                 status = modal.find_element(
                     By.CSS_SELECTOR, '#accordion > div:nth-child(4) > div.panel-heading > h4 > a')
-                status.click()
-                time.sleep(0.2)
+                wait_click(status)
 
                 operation_status = modal.find_element(
                     By.ID, 'operation_status').text
@@ -97,8 +110,7 @@ def run_scraper(id, file_name, url):
 
                 services = modal.find_element(
                     By.CSS_SELECTOR, '#accordion > div:nth-child(5) > div.panel-heading > h4 > a')
-                services.click()
-                time.sleep(0.2)
+                wait_click(services)
 
                 outpatient = modal.find_element(By.ID, 'outpatient').text
                 inpatient = modal.find_element(By.ID, 'inpatient').text
@@ -129,8 +141,7 @@ def run_scraper(id, file_name, url):
 
                 personnel = modal.find_element(
                     By.CSS_SELECTOR, '#accordion > div:nth-child(6) > div.panel-heading > h4 > a')
-                personnel.click()
-                time.sleep(0.2)
+                wait_click(personnel)
 
                 doctors = modal.find_element(By.ID, 'doctors').text
                 pharmacists = modal.find_element(By.ID, 'pharmacists').text
@@ -239,10 +250,11 @@ def run_scraper(id, file_name, url):
             json.dump(results, f, indent=4)
 
 
-# 101, 102, 103'104', '105', '106' '124', '128', '130'
+# 101, 102, 103 '104', '105', '106' '107', '108', '109', '110'   '124', '128', '130'
 
 if __name__ == '__main__':
-    states = ['107', '108', '109', '110']
+    # states = []
+    states = ['124', '128', '130']
 
     processes: list[multiprocessing.Process] = []
     for state in states:
